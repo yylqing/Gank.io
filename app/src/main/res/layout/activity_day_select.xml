@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sc="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.lyq2828.gankio.DaySelect">
+
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="345dp"
+        android:layout_height="42dp"
+        tools:layout_editor_absoluteY="368dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <com.tubb.calendarselector.library.MonthView
+        android:id="@+id/ssMv"
+        android:layout_width="368dp"
+        android:layout_height="300dp"
+        sc:sc_draw_monthday_only="false"
+        sc:sc_firstday_week="sunday"
+        sc:sc_month="2016-3"
+        tools:layout_editor_absoluteY="-10dp"
+        tools:layout_editor_absoluteX="8dp" />
+
+</android.support.constraint.ConstraintLayout>

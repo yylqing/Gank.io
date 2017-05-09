@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="calendar-selector-0.1.5">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/c78693cf532b3e9e698aa2bf25a9c332c0dfefed/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/c78693cf532b3e9e698aa2bf25a9c332c0dfefed/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tubb.calendarselector.library/calendar-selector/0.1.5/b50ed030d6b9625c933b459b8f4b59bafa352118/calendar-selector-0.1.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

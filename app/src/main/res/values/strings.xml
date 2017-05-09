@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Gank.io</string>
+    <string name="title_activity_more_aboutme">[相关]</string>
+    <string name="large_text">
+        "感谢源自代码家<a href="http://gank.io">Gank.io</a>的数据\n\n"
+
+        "每天一张精选妹纸图片一个精选小视频，若干篇程序猿精选干货 \n\n"
+        "项目源码<a href="http://g">开源</a>"
+    </string>
+    <string name="action_settings">Settings</string>
+</resources>
