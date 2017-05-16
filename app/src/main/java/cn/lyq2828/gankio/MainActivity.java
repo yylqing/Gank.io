@@ -1,57 +1,54 @@
 package cn.lyq2828.gankio;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.okhttp.Request;
-import com.zhy.http.okhttp.callback.BitmapCallback;
-import com.zhy.http.okhttp.callback.StringCallback;
+import java.util.ArrayList;
+import java.util.List;
 
-import cn.lyq2828.gankio.util.MyOkHttpUtil;
+import me.yuqirong.cardswipelayout.CardItemTouchHelperCallback;
+import me.yuqirong.cardswipelayout.CardLayoutManager;
+import me.yuqirong.cardswipelayout.OnSwipeListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView textView1;
-    private TextView textView2;
-    private ImageView imageView1;
-    private Button button1;
-    private WebView webView1;
+    private RecyclerView recyclerView;
+    private List<Integer> dataList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        imageView1 = (ImageView) findViewById(R.id.imageView);
-//        MyOkHttpUtil.setImageByOkHttpUtil("http://ww1.sinaimg.cn/large/61e74233ly1feuogwvg27j20p00zkqe7.jpg", imageView1);
-        textView1 = (TextView) findViewById(R.id.textView1);
-        textView2 = (TextView) findViewById(R.id.textView2);
-//        textView1.setText("hahaha");
-//        textView2.setText(MyOkHttpUtil.getDayData("2017-05-04"));
-        button1 = (Button) findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener() {
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
+        CardItemTouchHelperCallback cardCallback = new CardItemTouchHelperCallback(recyclerView.getAdapter(), dataList);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(cardCallback); CardLayoutManager cardLayoutManager = new CardLayoutManager(recyclerView, touchHelper);
+        recyclerView.setLayoutManager(cardLayoutManager);
+        touchHelper.attachToRecyclerView(recyclerView);
+        cardCallback.setOnSwipedListener(new OnSwipeListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "点击", Toast.LENGTH_SHORT).show();
-                String data = "Hello SelectDay";
-                Intent intent = new Intent(MainActivity.this, MoreAboutme.class);
-                intent.putExtra("extra_data", data);
-                startActivity(intent);
+            public void onSwiping(RecyclerView.ViewHolder viewHolder, float ratio, int direction) {
+
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, Object o, int direction) {
+
+            }
+
+            @Override
+            public void onSwipedClear() {
+
             }
         });
-//        展示本地html文件
-//        webView1 = (WebView) findViewById(R.id.webView1);
-//        webView1.loadUrl("file:///android_asset/More_about_me.html");
+
     }
 
     @Override
@@ -63,56 +60,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.share_item:
-                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(Intent.ACTION_SEND);
-                intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
-                intent.putExtra(Intent.EXTRA_TEXT, "I have successfully share my message through my app");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(Intent.createChooser(intent, getTitle()));
+            case R.id.where_item:
+                Intent where = new Intent(Intent.ACTION_VIEW);
+                where.setData(Uri.parse("https://github.com/yylqing/Gank.io"));
+                startActivity(where);
                 break;
             case R.id.more_item:
-                Toast.makeText(this, "More", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "关于", Toast.LENGTH_SHORT).show();
+                Intent more = new Intent(MainActivity.this, MoreAboutme.class);
+                startActivity(more);
                 break;
             default:
         }
         return true;
     }
 
-    /**
-     * 测试一下 MyOkHttpUtil
-     */
-    public void setText() {
-        MyOkHttpUtil.sendOkHttpUtilRequest("http://gank.io/api/data/Android/10/5", new StringCallback() {
-            @Override
-            public void onError(Request request, Exception e) {
-                Toast.makeText(MainActivity.this, "失败", Toast.LENGTH_SHORT).show();
-                textView1.setText(e.toString());
-            }
 
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(MainActivity.this, "成功", Toast.LENGTH_SHORT).show();
-                textView1 = (TextView) findViewById(R.id.textView1);
-                textView1.setText(response);
-            }
-        });
-
-    }
-
-    public void setImage() {
-        imageView1 = (ImageView) findViewById(R.id.imageView);
-        MyOkHttpUtil.getImageByOkHttpUtil("http://7xi8d6.com1.z0.glb.clouddn.com/2017-05-02-926821_1453024764952889_775781470_n.jpg", new BitmapCallback() {
-            @Override
-            public void onError(Request request, Exception e) {
-
-            }
-
-            @Override
-            public void onResponse(Bitmap response) {
-                imageView1.setImageBitmap(response);
-            }
-        });
-    }
 }

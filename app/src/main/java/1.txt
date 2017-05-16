@@ -1,0 +1,54 @@
+
+    /**
+     * 测试一下 MyOkHttpUtil
+     */
+    public void setText() {
+        MyOkHttpUtil.sendOkHttpUtilRequest("http://gank.io/api/data/Android/10/5", new StringCallback() {
+            @Override
+            public void onError(Request request, Exception e) {
+                Toast.makeText(MainActivity.this, "失败", Toast.LENGTH_SHORT).show();
+                textView1.setText(e.toString());
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(MainActivity.this, "成功", Toast.LENGTH_SHORT).show();
+                textView1 = (TextView) findViewById(R.id.textView1);
+                textView1.setText(response);
+            }
+        });
+
+    }
+
+    public void setImage() {
+        imageView1 = (ImageView) findViewById(R.id.imageView);
+        MyOkHttpUtil.getImageByOkHttpUtil("http://7xi8d6.com1.z0.glb.clouddn.com/2017-05-02-926821_1453024764952889_775781470_n.jpg", new BitmapCallback() {
+            @Override
+            public void onError(Request request, Exception e) {
+
+            }
+
+            @Override
+            public void onResponse(Bitmap response) {
+                imageView1.setImageBitmap(response);
+            }
+        });
+    }
+
+
+//        展示本地html文件
+        webView1 = (WebView) findViewById(R.id.webView1);
+        webView1.loadUrl("file:///android_asset/More_about_me.html");
+
+        private static List<DateDB> parseJSON(String data) throws Exception{
+                List<DateDB> list = new ArrayList<DateDB>();
+                JSONArray jsonArray = new JSONArray(data);
+                String results = jsonArray.getJSONObject(1).toString();
+                JSONArray resultsArray = new JSONArray(results);
+                for (int i = 0; i < jsonArray.length(); i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String date = jsonObject.getString("1");
+                    list.add((new DateDB(date)));
+                }
+                return list;
+        }

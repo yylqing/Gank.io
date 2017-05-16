@@ -7,58 +7,9 @@
     android:orientation="vertical"
     tools:context="cn.lyq2828.gankio.MainActivity">
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="495dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="选择日期"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="140dp" />
-
-    <WebView
-        android:id="@+id/webView1"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <!--<Button-->
-    <!--android:id="@+id/button2"-->
-    <!--android:text="网页"-->
-    <!--android:layout_width="361dp"-->
-    <!--android:layout_height="88dp"-->
-    <!--tools:layout_editor_absoluteY="291dp"-->
-    <!--tools:layout_editor_absoluteX="12dp" />-->
-
 </android.support.constraint.ConstraintLayout>
-
-    <!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:orientation="vertical">-->
-
-    <!--<android.support.v7.widget.Toolbar--><!--android:id="@+id/toolbar"--><!--android:layout_width="match_parent"--><!--android:layout_height="?attr/actionBarSize"--><!--android:background="?attr/colorPrimary"--><!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"--><!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
-
-    <!--<TextView--><!--android:id="@+id/textView1"--><!--android:layout_width="344dp"--><!--android:layout_height="240dp" />-->
-
-    <!--<ImageViewandroid:id="@+id/imageView"android:layout_width="match_parent"android:layout_height="match_parent" />-->
-
-    <!--<android.support.v7.widget.RecyclerView--><!--android:id="@+id/recycler_view"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent" />-->
-
-    <!--</FrameLayout>-->
