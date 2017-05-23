@@ -11,14 +11,14 @@ public class DaySelect extends AppCompatActivity {
 
     private TextView textView1;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_day_select);
-        Intent intent = getIntent();
-        String data = intent.getStringExtra("extra_data");
-        textView1 = (TextView) findViewById(R.id.text1);
-        textView1.setText(data);
-
-    }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_day_select);
+//        Intent intent = getIntent();
+//        String data = intent.getStringExtra("extra_data");
+//        textView1 = (TextView) findViewById(R.id.text1);
+//        textView1.setText(data);
+//
+//    }
 }

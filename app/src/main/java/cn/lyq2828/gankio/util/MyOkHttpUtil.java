@@ -4,20 +4,9 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
-import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.StringCallback;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.lyq2828.gankio.db.DateDB;
 
 
 /**
@@ -52,6 +41,7 @@ public class MyOkHttpUtil {
                 .build()
                 .execute(bitmapCallback);
     }
+
 
     /**
      * 直接设置图片
@@ -105,13 +95,12 @@ public class MyOkHttpUtil {
         return address;
     }
 
-    public static void getNewestData(StringCallback stringCallback){
+    public static void getNewestData(StringCallback stringCallback) {
         OkHttpUtils.get()
                 .url("http://gank.io/api/day/history")
                 .build()
                 .execute(stringCallback);
     }
-
 
 
 }

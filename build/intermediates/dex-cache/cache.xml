@@ -3,29 +3,11 @@
 
     <item
         is-multidex="true"
-        jar="/home/singinger/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
-        <dex dex="/home/singinger/AndroidStudioProjects/Gank.io/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.7_952362f3bb7b4f1a7551f6b3d36ff45ffbcb8680/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/singinger/.android/build-cache/c78693cf532b3e9e698aa2bf25a9c332c0dfefed/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="86df1f97c66b942fa299dbae8b9c10869b03ba6f">
-        <dex dex="/home/singinger/AndroidStudioProjects/Gank.io/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0bf66fc09f30813447b307d04b617f1e4069b00c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/home/singinger/AndroidStudioProjects/Gank.io/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
         <dex dex="/home/singinger/AndroidStudioProjects/Gank.io/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_e27468337ebf252849024d5c8d6f60e86bf516a4/classes.dex" />
     </item>
     <item
@@ -34,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="da867b56bd83027bf7d9ef5ef89e77bbe97a3cd5">
+        sha1="3f2714fc40c035b167c95fc4902895e010a91706">
         <dex dex="/home/singinger/AndroidStudioProjects/Gank.io/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_93987dfddaa3cbd79f60986fc18f1611210d8a66/classes.dex" />
     </item>
 
