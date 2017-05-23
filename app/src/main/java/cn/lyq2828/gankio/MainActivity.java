@@ -4,10 +4,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.okhttp.Request;
@@ -20,17 +21,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import cn.lyq2828.gankio.db.Data;
+import cn.lyq2828.gankio.db.IndexData;
 import cn.lyq2828.gankio.db.Date;
+import cn.lyq2828.gankio.util.IndexDataAdapter;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class MainActivity extends AppCompatActivity {
-
-
-    private ArrayList<Date> dateList = new ArrayList<>();
-    private ArrayList<Data> dataList = new ArrayList<Data>();
-    private TextView textView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,36 +35,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initData();
-        System.out.print(dataList);
 
 
     }
-
-//    public void initView() {
-//        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        CardItemTouchHelperCallback cardCallback = new CardItemTouchHelperCallback<>(recyclerView.getAdapter(), dateList);
-//        ItemTouchHelper touchHelper = new ItemTouchHelper(cardCallback);
-//        CardLayoutManager cardLayoutManager = new CardLayoutManager(recyclerView, touchHelper);
-//        recyclerView.setLayoutManager(cardLayoutManager);
-//        touchHelper.attachToRecyclerView(recyclerView);
-//        cardCallback.setOnSwipedListener(new OnSwipeListener<String>() {
-//            @Override
-//            public void onSwiping(RecyclerView.ViewHolder viewHolder, float ratio, int direction) {
-//                Log.i("onSwiping", "onSwiping");
-//            }
-//
-//            @Override
-//            public void onSwiped(RecyclerView.ViewHolder viewHolder, String o, int direction) {
-//                Log.i("onSwiped", "onSwiped");
-//            }
-//
-//            @Override
-//            public void onSwipedClear() {
-//                Log.i("onSwipedClear", "onSwipedClear");
-//            }
-//        });
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -127,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initData() {
+        final ArrayList<IndexData> myIndexDataList = new ArrayList<>();
+
         OkHttpUtils.get()
                 .url("http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/1")
                 .build()
@@ -144,17 +116,24 @@ public class MainActivity extends AppCompatActivity {
                             JSONArray jsonArray = new JSONArray(results);
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject oneResults = jsonArray.getJSONObject(i);
-//                                String data = jsonArray.getString(i);
-//                                Log.i(String.valueOf(i), data);
                                 String url = oneResults.getString("url");
                                 String desc = oneResults.getString("desc");
-                                Data data = new Data(url,desc);
-                                dataList.add(data);
+                                IndexData indexData = new IndexData(url, desc);
+                                myIndexDataList.add(indexData);
+                                Log.i(String.valueOf(i), myIndexDataList.get(i).getDesc());
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+//                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+                        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+                        recyclerView.setLayoutManager(layoutManager);
+                        IndexDataAdapter adapter = new IndexDataAdapter(myIndexDataList);
+                        recyclerView.setAdapter(adapter);
                     }
                 });
     }
+
+
 }

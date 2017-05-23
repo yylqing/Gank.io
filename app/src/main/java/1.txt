@@ -3,7 +3,7 @@
      * 测试一下 MyOkHttpUtil
      */
     public void setText() {
-        MyOkHttpUtil.sendOkHttpUtilRequest("http://gank.io/api/data/Android/10/5", new StringCallback() {
+        MyOkHttpUtil.sendOkHttpUtilRequest("http://gank.io/api/indexData/Android/10/5", new StringCallback() {
             @Override
             public void onError(Request request, Exception e) {
                 Toast.makeText(MainActivity.this, "失败", Toast.LENGTH_SHORT).show();
@@ -40,9 +40,9 @@
         webView1 = (WebView) findViewById(R.id.webView1);
         webView1.loadUrl("file:///android_asset/More_about_me.html");
 
-        private static List<DateDB> parseJSON(String data) throws Exception{
+        private static List<DateDB> parseJSON(String indexData) throws Exception{
                 List<DateDB> list = new ArrayList<DateDB>();
-                JSONArray jsonArray = new JSONArray(data);
+                JSONArray jsonArray = new JSONArray(indexData);
                 String results = jsonArray.getJSONObject(1).toString();
                 JSONArray resultsArray = new JSONArray(results);
                 for (int i = 0; i < jsonArray.length(); i++){
@@ -52,3 +52,29 @@
                 }
                 return list;
         }
+
+        public void initView() {
+                final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                CardItemTouchHelperCallback cardCallback = new CardItemTouchHelperCallback<>(recyclerView.getAdapter(), dateList);
+                ItemTouchHelper touchHelper = new ItemTouchHelper(cardCallback);
+                CardLayoutManager cardLayoutManager = new CardLayoutManager(recyclerView, touchHelper);
+                recyclerView.setLayoutManager(cardLayoutManager);
+                touchHelper.attachToRecyclerView(recyclerView);
+                cardCallback.setOnSwipedListener(new OnSwipeListener<String>() {
+                    @Override
+                    public void onSwiping(RecyclerView.ViewHolder viewHolder, float ratio, int direction) {
+                        Log.i("onSwiping", "onSwiping");
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, String o, int direction) {
+                        Log.i("onSwiped", "onSwiped");
+                    }
+
+                    @Override
+                    public void onSwipedClear() {
+                        Log.i("onSwipedClear", "onSwipedClear");
+                    }
+                });
+            }
