@@ -1,4 +1,4 @@
-package cn.lyq2828.gankio;
+package cn.lyq2828.gankio.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,37 +19,65 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import cn.lyq2828.gankio.R;
+import cn.lyq2828.gankio.db.IndexPage;
 import cn.lyq2828.gankio.db.IndexData;
 import cn.lyq2828.gankio.db.Date;
-import cn.lyq2828.gankio.util.IndexDataAdapter;
+import cn.lyq2828.gankio.util.getIndexData;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ArrayList<IndexData> indexDatas = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        initData();
+//        initData();
+        getIndexData.getData();
+        Log.i("sasas", "sasasas");
+        List<IndexPage> datas = DataSupport.findAll(IndexPage.class);
+        for (IndexPage data : datas) {
+            Log.i("hahaha", data.getDate());
+       }
 
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(16);
+        recyclerView.addItemDecoration(decoration);
+        recyclerView.setLayoutManager(layoutManager);
+        IndexDataAdapter adapter = new IndexDataAdapter(datas);
+        recyclerView.setAdapter(adapter);
 
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.toolbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.where_item:
+            case R.id.share_item:
                 Intent where = new Intent(Intent.ACTION_VIEW);
                 where.setData(Uri.parse("https://github.com/yylqing/Gank.io"));
                 startActivity(where);
@@ -85,52 +114,12 @@ public class MainActivity extends AppCompatActivity {
                                 String date = jsonArray.getString(i);
                                 Log.i(String.valueOf(i), date);
                                 Date dates = new Date(date);
-                                dateList.add(dates);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                             System.out.print("!!!!!!!!!!!!!!hahahhahahahaha!!!!!!!!!!!!!!");
                             System.out.print(e);
                         }
-                    }
-                });
-    }
-
-    public void initData() {
-        final ArrayList<IndexData> myIndexDataList = new ArrayList<>();
-
-        OkHttpUtils.get()
-                .url("http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/1")
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Request request, Exception e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String results = jsonObject.getString("results");
-                            JSONArray jsonArray = new JSONArray(results);
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject oneResults = jsonArray.getJSONObject(i);
-                                String url = oneResults.getString("url");
-                                String desc = oneResults.getString("desc");
-                                IndexData indexData = new IndexData(url, desc);
-                                myIndexDataList.add(indexData);
-                                Log.i(String.valueOf(i), myIndexDataList.get(i).getDesc());
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-//                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
-                        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-                        recyclerView.setLayoutManager(layoutManager);
-                        IndexDataAdapter adapter = new IndexDataAdapter(myIndexDataList);
-                        recyclerView.setAdapter(adapter);
                     }
                 });
     }

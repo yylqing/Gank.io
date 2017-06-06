@@ -1,4 +1,4 @@
-package cn.lyq2828.gankio;
+package cn.lyq2828.gankio.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+
+import cn.lyq2828.gankio.R;
 
 public class MoreAboutme extends AppCompatActivity {
 

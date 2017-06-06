@@ -78,3 +78,48 @@
                     }
                 });
             }
+
+         public void initData() {
+             final ArrayList<IndexData> myIndexDataList = new ArrayList<>();
+
+             OkHttpUtils.get()
+                     .url("http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/1")
+                     .build()
+                     .execute(new StringCallback() {
+                         @Override
+                         public void onError(Request request, Exception e) {
+                             Toast.makeText(MainActivity.this, "网络错误", LENGTH_SHORT).show();
+                         }
+
+                         @Override
+                         public void onResponse(String response) {
+                             try {
+                                 JSONObject jsonObject = new JSONObject(response);
+                                 String results = jsonObject.getString("results");
+                                 JSONArray jsonArray = new JSONArray(results);
+                                 for (int i = 0; i < jsonArray.length(); i++) {
+                                     JSONObject oneResults = jsonArray.getJSONObject(i);
+                                     String url = oneResults.getString("url");
+                                     String desc = oneResults.getString("desc");
+                                     IndexData indexData = new IndexData(url, desc);
+                                     indexDatas.add(indexData);
+                                     myIndexDataList.add(indexData);
+                                     Log.i(String.valueOf(i), myIndexDataList.get(i).getDesc());
+                                 }
+                             } catch (JSONException e) {
+                                 e.printStackTrace();
+                             }
+
+
+                             RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+     //                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+                             StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                             SpacesItemDecoration decoration = new SpacesItemDecoration(16);
+                             recyclerView.addItemDecoration(decoration);
+                             recyclerView.setLayoutManager(layoutManager);
+                             IndexDataAdapter adapter = new IndexDataAdapter(indexDatas);
+                             recyclerView.setAdapter(adapter);
+                         }
+                     });
+         }
+
