@@ -3,7 +3,7 @@
     <!--数据库名-->
     <dbname value="GankIo"></dbname>
     <!--版本号-->
-    <version value="3"></version>
+    <version value="4"></version>
 
     <list>
         <mapping class="cn.lyq2828.gankio.db.IndexPage"></mapping>

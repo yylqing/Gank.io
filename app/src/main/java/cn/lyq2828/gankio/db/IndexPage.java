@@ -9,6 +9,7 @@ import org.litepal.crud.DataSupport;
 public class IndexPage extends DataSupport {
     private int id;
 
+    private String tag_id;
     private String publish_time;
     private String image_url;
     private String dec;
@@ -22,6 +23,15 @@ public class IndexPage extends DataSupport {
 
     public int getId() {
         return id;
+    }
+
+    public void setTag_id(String tag_id) {
+        this.tag_id = tag_id;
+    }
+
+    public String getTag_id() {
+
+        return tag_id;
     }
 
     public void setPage(int page) {

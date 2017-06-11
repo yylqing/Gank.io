@@ -123,3 +123,35 @@
                      });
          }
 
+    public void initDate() {
+        OkHttpUtils.get()
+                .url("http://gank.io/api/day/history")
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Request request, Exception e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String results = jsonObject.getString("results");
+                            JSONArray jsonArray = new JSONArray(results);
+                            for (int i = 0; i < jsonArray.length(); i++) {
+//                                JSONObject haha = jsonArray.getJSONObject(i);
+//                                Log.i(String.valueOf(i),haha.getString("desc"));
+                                String date = jsonArray.getString(i);
+                                Log.i(String.valueOf(i), date);
+                                Date dates = new Date(date);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            System.out.print("!!!!!!!!!!!!!!hahahhahahahaha!!!!!!!!!!!!!!");
+                            System.out.print(e);
+                        }
+                    }
+                });
+    }
+
