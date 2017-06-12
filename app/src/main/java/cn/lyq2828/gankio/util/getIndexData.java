@@ -50,6 +50,7 @@ public class getIndexData {
                     public void onResponse(String response) {
                         try {
                             setData2DB(response);
+                            getDec();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -90,6 +91,38 @@ public class getIndexData {
                 indexPage.save();
             }
         }
+    }
+
+    private static void getDec(){
+        String url = "http://gank.io/api/data/%E4%BC%91%E6%81%AF%E8%A7%86%E9%A2%91/10/" + page;
+        OkHttpUtils.get()
+                .url(url)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Request request, Exception e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(new JSONObject(response).getString("results"));
+                            for (int i = 0;i<jsonArray.length();i++){
+                                JSONObject oneResults = jsonArray.getJSONObject(i);
+                                String publish_time = oneResults.getString("publishedAt");
+                                String date = publish_time.substring(0,10);
+                                String dec = oneResults.getString("desc");
+                                IndexPage indexPage = new IndexPage();
+                                indexPage.setDec(dec);
+                                indexPage.updateAll("date = ?",date);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
     }
 
 }

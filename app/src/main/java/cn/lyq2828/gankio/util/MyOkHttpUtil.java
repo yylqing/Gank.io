@@ -95,12 +95,6 @@ public class MyOkHttpUtil {
         return address;
     }
 
-    public static void getNewestData(StringCallback stringCallback) {
-        OkHttpUtils.get()
-                .url("http://gank.io/api/day/history")
-                .build()
-                .execute(stringCallback);
-    }
 
 
 }

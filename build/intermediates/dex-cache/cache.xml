@@ -16,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="693154c4ae0c7720acd97261e872eaf54abe03b2">
+        sha1="f4db0f9e9a5d694b83e92d40ba5d779ee5816fb5">
         <dex dex="/home/singinger/AndroidStudioProjects/Gank.io/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_93987dfddaa3cbd79f60986fc18f1611210d8a66/classes.dex" />
     </item>
 
